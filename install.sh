@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Forțează accesul la terminal pentru a asigura interactivitatea
+exec < /dev/tty
+
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
 
