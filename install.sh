@@ -44,4 +44,4 @@ cat .env
 
 # Rulează aplicația
 echo "Pornire aplicație..."
-npm start
+node index
