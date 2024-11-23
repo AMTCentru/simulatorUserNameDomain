@@ -1,8 +1,8 @@
-# Aplicația Mea Node.js
-
-Aceasta este o aplicație simplă creată cu Node.js. Urmează pașii de mai jos pentru instalare:
+# Aplicația simulare userDomen windows si linux
 
 ## Instalare rapidă
+
+keia solicitata la instalare o gasesti in password nextcloud
 
 Rulează următoarea comandă pentru a instala aplicația:
 
