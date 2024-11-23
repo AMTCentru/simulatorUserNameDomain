@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Verifică dacă scriptul este într-un terminal interactiv
-if [[ ! -t 0 ]]; then
-  echo "Scriptul trebuie să fie rulat într-un terminal interactiv."
-  exit 1
+# Verifică dacă a fost specificat un port ca argument
+if [ -z "$1" ]; then
+  # Dacă nu este specificat, folosește portul implicit
+  PORT=3000
+  echo "Portul nu a fost specificat. Se va folosi portul implicit: $PORT"
+else
+  PORT=$1
+  echo "Portul specificat este: $PORT"
 fi
 
 # Actualizează sistemul
@@ -33,11 +37,6 @@ cd "$TARGET_DIR" || exit
 
 # Instalează dependențele
 npm install
-
-# Configurare variabile de mediu de la utilizator
-echo "Configurare variabile de mediu pentru aplicație:"
-read -p "Introduceți portul (implicit 3000): " PORT
-PORT=${PORT:-3000}  # Valoare implicită 3000
 
 # Creează fișierul .env
 cat <<EOT > .env
