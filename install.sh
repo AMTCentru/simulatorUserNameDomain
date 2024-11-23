@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Forțează accesul la terminal pentru a asigura interactivitatea
-exec < /dev/tty
+# Verifică dacă scriptul este într-un terminal interactiv
+if [[ ! -t 0 ]]; then
+  echo "Scriptul trebuie să fie rulat într-un terminal interactiv."
+  exit 1
+fi
 
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
