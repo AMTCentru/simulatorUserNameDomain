@@ -49,7 +49,7 @@ app.listen(PORT, () => {
 });
 
 // Encryption/Decryption Functions
-const key = process.env.ENCRYPTION_KEY || '1018123456789012'; // Store the key securely
+const key = process.env.ENCRYPTION_KEY; // Store the key securely
 
 function encrypt(text) {
     const iv = crypto.randomBytes(12); // 12-byte nonce for AES-GCM
