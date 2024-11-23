@@ -57,7 +57,7 @@ echo "Pornire aplicație..."
 
 # Deschide URL-ul în browserul implicit
 # Poți înlocui `http://localhost:$PORT` cu orice URL de care ai nevoie
-URL="http://localhost:3000"
+URL="http://localhost:8080/admin"
 xdg-open "$URL" &  # Deschide URL-ul în browser
 
 # Rulează aplicația Node.js
