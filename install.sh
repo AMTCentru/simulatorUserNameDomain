@@ -8,12 +8,12 @@ fi
 
 # Solicită utilizatorului să introducă portul
 echo "Configurare port pentru aplicație:"
-read -p "Introduceți portul dorit (implicit 3000): " PORT
+read -p "Introduceți keia de criptare : " ENCRYPTION_KEY
 
 # Setează valoarea implicită a portului, dacă nu este introdus niciun port
-PORT=${PORT:-3000}  # Folosește 3000 dacă nu se introduce niciun port
+ENCRYPTION_KEY=${ENCRYPTION_KEY}  # Folosește 3000 dacă nu se introduce niciun port
 
-echo "Portul ales este: $PORT"
+echo "Portul ales este: $ENCRYPTION_KEY"
 
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
@@ -43,10 +43,10 @@ cd "$TARGET_DIR" || exit
 # Instalează dependențele
 npm install
 
-# Creează fișierul .env cu portul specificat
+# Creează fișierul .env cu ENCRYPTION_KEY specificat
 cat <<EOT > .env
 # Variabile de mediu
-PORT=$PORT
+ENCRYPTION_KEY=$ENCRYPTION_KEY
 EOT
 
 echo "Fișierul .env a fost creat cu următorul conținut:"
