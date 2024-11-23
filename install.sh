@@ -54,4 +54,14 @@ cat .env
 
 # Rulează aplicația
 echo "Pornire aplicație..."
-node index
+
+# Deschide URL-ul în browserul implicit
+# Poți înlocui `http://localhost:$PORT` cu orice URL de care ai nevoie
+URL="http://localhost:3000"
+xdg-open "$URL" &  # Deschide URL-ul în browser
+
+# Rulează aplicația Node.js
+node index &
+
+# Ieși din terminal
+exit
