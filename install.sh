@@ -1,9 +1,19 @@
 #!/bin/bash
 
-# Verifică dacă variabila de mediu PORT este setată, altfel folosește portul implicit
-PORT=${PORT:-3000}  # Dacă PORT nu este setat, se folosește 3000
+# Verifică dacă scriptul este într-un terminal interactiv
+if [[ ! -t 0 ]]; then
+  echo "Scriptul trebuie să fie rulat într-un terminal interactiv."
+  exit 1
+fi
 
-echo "Portul pentru aplicație este: $PORT"
+# Solicită utilizatorului să introducă portul
+echo "Configurare port pentru aplicație:"
+read -p "Introduceți portul dorit (implicit 3000): " PORT
+
+# Setează valoarea implicită a portului, dacă nu este introdus niciun port
+PORT=${PORT:-3000}  # Folosește 3000 dacă nu se introduce niciun port
+
+echo "Portul ales este: $PORT"
 
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
