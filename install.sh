@@ -6,14 +6,14 @@ if [[ ! -t 0 ]]; then
   exit 1
 fi
 
-# Solicită utilizatorului să introducă portul
-echo "Configurare port pentru aplicație:"
-read -p "Introduceți keia de criptare : " ENCRYPTION_KEY
+# Solicită utilizatorului să introducă cheia de criptare
+echo "Configurare cheia de criptare pentru aplicație:"
+read -p "Introduceți cheia de criptare : " ENCRYPTION_KEY
 
-# Setează valoarea implicită a portului, dacă nu este introdus niciun port
-ENCRYPTION_KEY=${ENCRYPTION_KEY}  # Folosește 3000 dacă nu se introduce niciun port
+# Setează valoarea implicită a ENCRYPTION_KEY dacă nu este introdusă nici o valoare
+ENCRYPTION_KEY=${ENCRYPTION_KEY}  # Folosește valoarea introdusă de utilizator
 
-echo "Portul ales este: $ENCRYPTION_KEY"
+echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
 
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
@@ -24,18 +24,18 @@ if ! command -v node &> /dev/null; then
   sudo apt install -y nodejs
 fi
 
-# Clonează repository-ul tău de pe GitHub
+# Setează URL-ul repository-ului și directorul țintă
 REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain.git" # Înlocuiește cu linkul tău
 TARGET_DIR="aplicatie"
 
-if [ ! -d "$TARGET_DIR" ]; then
-  git clone "$REPO_URL" "$TARGET_DIR"
-else
-  echo "Repository-ul este deja clonat. Actualizare..."
-  cd "$TARGET_DIR" || exit
-  git pull
-  cd ..
+# Verifică dacă directorul țintă există deja și îl șterge
+if [ -d "$TARGET_DIR" ]; then
+  echo "Directorul $TARGET_DIR există deja. Îl voi șterge și voi clona din nou repository-ul..."
+  rm -rf "$TARGET_DIR"
 fi
+
+# Clonează repository-ul tău de pe GitHub
+git clone "$REPO_URL" "$TARGET_DIR"
 
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
