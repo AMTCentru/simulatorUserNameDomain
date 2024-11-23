@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# Verifică dacă a fost specificat un port ca argument
-if [ -z "$1" ]; then
-  # Dacă nu este specificat, folosește portul implicit
-  PORT=3000
-  echo "Portul nu a fost specificat. Se va folosi portul implicit: $PORT"
-else
-  PORT=$1
-  echo "Portul specificat este: $PORT"
-fi
+# Verifică dacă variabila de mediu PORT este setată, altfel folosește portul implicit
+PORT=${PORT:-3000}  # Dacă PORT nu este setat, se folosește 3000
+
+echo "Portul pentru aplicație este: $PORT"
 
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
@@ -38,7 +33,7 @@ cd "$TARGET_DIR" || exit
 # Instalează dependențele
 npm install
 
-# Creează fișierul .env
+# Creează fișierul .env cu portul specificat
 cat <<EOT > .env
 # Variabile de mediu
 PORT=$PORT
