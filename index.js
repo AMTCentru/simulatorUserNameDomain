@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
+require('dotenv').config()
+
 const PORT = process.env.PORT || 8080;
 
 app.use(cors());
