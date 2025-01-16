@@ -26,7 +26,7 @@ fi
 
 # Setează URL-ul repository-ului și directorul țintă
 REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain.git" # Înlocuiește cu linkul tău
-TARGET_DIR="aplicatie"
+TARGET_DIR="simulatorUserNameDomain"
 
 # Verifică dacă directorul țintă există deja și îl șterge
 if [ -d "$TARGET_DIR" ]; then
