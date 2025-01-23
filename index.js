@@ -32,8 +32,6 @@ app.get('/simulate', (req, res) => {
     if (username) {
         gusername = encrypt(`AMTCENTRU\\${username}`);
     }
-
-    res.redirect(301, 'https://aplicatii.amtcentru.duckdns.org');
 });
 
 // Return the current user
@@ -41,7 +39,7 @@ app.get('/user', (req, res) => {
     if (!gusername) {
         res.send("null");
     } else {
-        res.json({ username: gusername });
+        res.json({ usrname: gusername });
     }
 });
 
