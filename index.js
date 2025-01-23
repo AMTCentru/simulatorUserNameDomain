@@ -32,6 +32,7 @@ app.get('/simulate', (req, res) => {
     if (username) {
         gusername = encrypt(`AMTCENTRU\\${username}`);
     }
+      res.json({ status: true });
 });
 
 // Return the current user
