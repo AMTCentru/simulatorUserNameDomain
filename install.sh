@@ -25,7 +25,7 @@ if ! command -v node &> /dev/null; then
 fi
 
 # Setează URL-ul repository-ului și directorul țintă
-REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.zip" # Înlocuiește cu linkul corect
+REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.tar.gz" # Link modificat pentru arhiva .tar.gz
 TARGET_DIR="simulatorUserNameDomain"
 
 # Verifică dacă directorul țintă există deja și îl șterge
@@ -37,16 +37,24 @@ fi
 # Creează directorul țintă
 mkdir -p "$TARGET_DIR"
 
-# Descarcă repository-ul ca ZIP direct în directorul țintă folosind wget
+# Descarcă repository-ul ca .tar.gz direct în directorul țintă folosind wget
 echo "Se descarcă repository-ul..."
-wget -O "$TARGET_DIR/repo.zip" "$REPO_URL"
+wget -O "$TARGET_DIR/repo.tar.gz" "$REPO_URL"
+
+# Verifică dacă descărcarea a fost reușită
+if [ ! -f "$TARGET_DIR/repo.tar.gz" ]; then
+  echo "Eroare: Descărcarea a eșuat. Verifică URL-ul și conexiunea la internet."
+  exit 1
+fi
 
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
 
-# Extrage arhiva în același director și șterge arhiva după extracție
-unzip repo.zip
-rm repo.zip
+# Extrage arhiva în același director
+tar -xvzf repo.tar.gz
+
+# **NU** șterge fișierul arhivă
+echo "Arhiva repo.tar.gz a fost păstrată."
 
 # Mută fișierele din folderul extras în `TARGET_DIR`
 mv simulatorUserNameDomain-main/* .
