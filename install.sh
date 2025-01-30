@@ -37,9 +37,9 @@ fi
 # Creează directorul țintă
 mkdir -p "$TARGET_DIR"
 
-# Descarcă repository-ul ca ZIP direct în directorul țintă
+# Descarcă repository-ul ca ZIP direct în directorul țintă folosind wget
 echo "Se descarcă repository-ul..."
-curl -L "$REPO_URL" -o "$TARGET_DIR/repo.zip"
+wget -O "$TARGET_DIR/repo.zip" "$REPO_URL"
 
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
