@@ -6,15 +6,6 @@ if [[ ! -t 0 ]]; then
   exit 1
 fi
 
-# Solicită utilizatorului să introducă cheia de criptare
-echo "Configurare cheia de criptare pentru aplicație:"
-read -p "Introduceți cheia de criptare: " ENCRYPTION_KEY
-
-# Folosește valoarea introdusă de utilizator
-ENCRYPTION_KEY=${ENCRYPTION_KEY}
-
-echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
-
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
 
@@ -26,6 +17,15 @@ if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
 else
   echo "Node.js și npm sunt deja instalate."
 fi
+
+# Solicită utilizatorului să introducă cheia de criptare
+echo "Configurare cheia de criptare pentru aplicație:"
+read -p "Introduceți cheia de criptare: " ENCRYPTION_KEY
+
+# Folosește valoarea introdusă de utilizator
+ENCRYPTION_KEY=${ENCRYPTION_KEY}
+
+echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
 
 # Setează URL-ul repository-ului și directorul țintă
 REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.tar.gz" # Înlocuiește cu linkul corect
