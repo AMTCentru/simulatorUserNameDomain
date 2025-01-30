@@ -12,18 +12,24 @@ sudo apt update && sudo apt upgrade -y
 
 # Verifică dacă Node.js și npm sunt instalate
 if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
-  echo "Node.js și npm nu sunt instalate. Se instalează..."
+  echo "Node.js și npm nu sunt instalate. Se instalează versiunea 20..."
   
-  # Descărcare și instalare Node.js folosind wget
-  wget -O nodesource_setup.sh https://deb.nodesource.com/setup_16.x
+  # Descărcare și instalare Node.js 20 folosind wget
+  wget -O nodesource_setup.sh https://deb.nodesource.com/setup_20.x
   sudo bash nodesource_setup.sh
-  sudo apt install -y nodejs
-  
+  sudo apt install -y nodejs npm  # Instalează și npm
+
   # Șterge scriptul după instalare
   rm -f nodesource_setup.sh
 else
   echo "Node.js și npm sunt deja instalate."
 fi
+
+# Verifică versiunile instalate
+echo "Versiunea instalată de Node.js:"
+node -v
+echo "Versiunea instalată de npm:"
+npm -v
 
 # Solicită utilizatorului să introducă cheia de criptare
 echo "Configurare cheia de criptare pentru aplicație:"
