@@ -6,14 +6,21 @@ if [[ ! -t 0 ]]; then
   exit 1
 fi
 
+
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
 
-# Verifică dacă Node.js este instalat, dacă nu, îl instalează
+# Verifică dacă Node.js și npm sunt instalate
 if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
   echo "Node.js și npm nu sunt instalate. Se instalează..."
-  curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  
+  # Descărcare și instalare Node.js folosind wget
+  wget -O nodesource_setup.sh https://deb.nodesource.com/setup_16.x
+  sudo bash nodesource_setup.sh
   sudo apt install -y nodejs
+  
+  # Șterge scriptul după instalare
+  rm -f nodesource_setup.sh
 else
   echo "Node.js și npm sunt deja instalate."
 fi
@@ -26,6 +33,7 @@ read -p "Introduceți cheia de criptare: " ENCRYPTION_KEY
 ENCRYPTION_KEY=${ENCRYPTION_KEY}
 
 echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
+
 
 # Setează URL-ul repository-ului și directorul țintă
 REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.tar.gz" # Înlocuiește cu linkul corect
