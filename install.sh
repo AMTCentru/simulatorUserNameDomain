@@ -18,14 +18,17 @@ echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
 # Actualizează sistemul
 sudo apt update && sudo apt upgrade -y
 
-# Instalează Node.js și npm (dacă nu sunt deja instalate)
-if ! command -v node &> /dev/null; then
+# Verifică dacă Node.js este instalat, dacă nu, îl instalează
+if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
+  echo "Node.js și npm nu sunt instalate. Se instalează..."
   curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
   sudo apt install -y nodejs
+else
+  echo "Node.js și npm sunt deja instalate."
 fi
 
 # Setează URL-ul repository-ului și directorul țintă
-REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.tar.gz" # Link modificat pentru arhiva .tar.gz
+REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.tar.gz" # Înlocuiește cu linkul corect
 TARGET_DIR="simulatorUserNameDomain"
 
 # Verifică dacă directorul țintă există deja și îl șterge
@@ -50,11 +53,9 @@ fi
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
 
-# Extrage arhiva în același director
+# Extrage arhiva în același director și apoi șterge fișierul arhivă
 tar -xvzf repo.tar.gz
-
-# **NU** șterge fișierul arhivă
-echo "Arhiva repo.tar.gz a fost păstrată."
+rm repo.tar.gz
 
 # Mută fișierele din folderul extras în `TARGET_DIR`
 mv simulatorUserNameDomain-main/* .
