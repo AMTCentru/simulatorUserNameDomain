@@ -8,10 +8,10 @@ fi
 
 # Solicită utilizatorului să introducă cheia de criptare
 echo "Configurare cheia de criptare pentru aplicație:"
-read -p "Introduceți cheia de criptare : " ENCRYPTION_KEY
+read -p "Introduceți cheia de criptare: " ENCRYPTION_KEY
 
-# Setează valoarea implicită a ENCRYPTION_KEY dacă nu este introdusă nici o valoare
-ENCRYPTION_KEY=${ENCRYPTION_KEY}  # Folosește valoarea introdusă de utilizator
+# Folosește valoarea introdusă de utilizator
+ENCRYPTION_KEY=${ENCRYPTION_KEY}
 
 echo "Cheia de criptare aleasă este: $ENCRYPTION_KEY"
 
@@ -25,17 +25,26 @@ if ! command -v node &> /dev/null; then
 fi
 
 # Setează URL-ul repository-ului și directorul țintă
-REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain.git" # Înlocuiește cu linkul tău
+REPO_URL="https://github.com/AMTCentru/simulatorUserNameDomain/archive/refs/heads/main.zip" # Înlocuiește cu linkul corect
 TARGET_DIR="simulatorUserNameDomain"
 
 # Verifică dacă directorul țintă există deja și îl șterge
 if [ -d "$TARGET_DIR" ]; then
-  echo "Directorul $TARGET_DIR există deja. Îl voi șterge și voi clona din nou repository-ul..."
+  echo "Directorul $TARGET_DIR există deja. Îl voi șterge și voi descărca din nou repository-ul..."
   rm -rf "$TARGET_DIR"
 fi
 
-# Clonează repository-ul tău de pe GitHub
-git clone "$REPO_URL" "$TARGET_DIR"
+# Descarcă repository-ul ca ZIP
+echo "Se descarcă repository-ul..."
+curl -L "$REPO_URL" -o repo.zip
+
+# Creează directorul țintă și extrage arhiva acolo
+mkdir "$TARGET_DIR"
+unzip repo.zip -d "$TARGET_DIR"
+
+# Mută conținutul corect și șterge fișierele temporare
+mv "$TARGET_DIR"/*/* "$TARGET_DIR"
+rm -rf repo.zip "$TARGET_DIR"/*/
 
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
@@ -56,7 +65,6 @@ cat .env
 echo "Pornire aplicație..."
 
 # Deschide URL-ul în browserul implicit
-# Poți înlocui `http://localhost:$PORT` cu orice URL de care ai nevoie
 URL="http://localhost:8080/admin"
 xdg-open "$URL" &  # Deschide URL-ul în browser
 
