@@ -34,20 +34,23 @@ if [ -d "$TARGET_DIR" ]; then
   rm -rf "$TARGET_DIR"
 fi
 
-# Descarcă repository-ul ca ZIP
+# Creează directorul țintă
+mkdir -p "$TARGET_DIR"
+
+# Descarcă repository-ul ca ZIP direct în directorul țintă
 echo "Se descarcă repository-ul..."
-curl -L "$REPO_URL" -o repo.zip
-
-# Creează directorul țintă și extrage arhiva acolo
-mkdir "$TARGET_DIR"
-unzip repo.zip -d "$TARGET_DIR"
-
-# Mută conținutul corect și șterge fișierele temporare
-mv "$TARGET_DIR"/*/* "$TARGET_DIR"
-rm -rf repo.zip "$TARGET_DIR"/*/
+curl -L "$REPO_URL" -o "$TARGET_DIR/repo.zip"
 
 # Navighează în directorul aplicației
 cd "$TARGET_DIR" || exit
+
+# Extrage arhiva în același director și șterge arhiva după extracție
+unzip repo.zip
+rm repo.zip
+
+# Mută fișierele din folderul extras în `TARGET_DIR`
+mv simulatorUserNameDomain-main/* .
+rm -rf simulatorUserNameDomain-main
 
 # Instalează dependențele
 npm install
